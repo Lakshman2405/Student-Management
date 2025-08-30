@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Management</title>
+    </head>
+    <body>
+        <h1>Student Management </h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Save</button>
+        </form>
+        
+        <h2>Current Students</h2>
+        {% for student in students %}
+            <div>
+                <p><strong>Student Registration Number:</strong>{{student.StudentRegNumber}}</p>
+                <p><strong>Student Name:</strong>{{student.StudentName}}</p>
+                <p><strong>Mobile Number:</strong>{{student.ContactMobileNumber}}</p>
+                <p><strong>Programme Name:</strong>{{student.get_NameOfTheProgramme_display}}</p>
+                <p><strong>Status of Fee:</strong>{{student.get_StatusOftheSemesterFee_display}}</p>
+                <a href="{% url 'MedicalStudent:edit' student.StudentRegNumber %}">Edit</a>
+                <a href="{% url 'MedicalStudent:delete' student.StudentRegNumber %}">Delete</a>
+            </div>
+        {% endfor %}
+    </body>
+</html>
